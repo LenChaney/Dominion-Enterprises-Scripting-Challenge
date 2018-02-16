@@ -1,0 +1,2 @@
+# PowerShell-PerformanceCounters
+You are required to create a reusable PowerShell script that will enable you to retrieve the following performance counters from a remote machine:  • Processor: Percentage processor time (use the total if there are multiple processors in the system)  • Disk: Percentage Free space of the C: drive  • Memory: Percentage Committed Bytes in Use  • Network Adapter: Bytes Total per second 
