@@ -33,6 +33,8 @@ vNic, Security Resource Group, and PublicDNS will have a randomized postfix so t
 
 Running the Script
 ==================
+Note: Script take a while to run but that time appears to be Azure creating the VM
+
 1. Make a Resource Group of DomEntChall or change the variable to a resource group that exists in your Azure account
 2. Run CreateAzureVM.ps1
 3. Logon with Azure credentials
@@ -42,3 +44,14 @@ Running the Script
 7. Review choices and hit enter to continue
 8. Wait
 Note the output because that will have the IP address of the new VM although you can get it in the Azure portal
+
+Other
+=====
+Port 3389 is open for RDP
+VM account user name should not indluce "Admin" or any standard name.
+Password length in portal is 12 characters min although the script appears to work with less
+
+RandomId will be 3 characters between 100 and 999
+Servername is max of 15 characters
+I included the function of Show-VMSizeManu to demonstrate that I know how to use Functions
+
