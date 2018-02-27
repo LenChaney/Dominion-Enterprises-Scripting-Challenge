@@ -1,7 +1,6 @@
-Duane,
-I realized I should work some of these thing out with the Azure account BEFORE the deadline date.  I'll put the other scripts on GitHub later today or tonight.
-
-This is also in the file: CreateAzureVM.md also in GitHub
+Required
+========
+*** Make a Resource Group of "DomEntChall" or change the variable on line 33 to a resource group that exists in your Azure account ***
 
 Code
 ====
