@@ -33,6 +33,9 @@ $cred = Get-Credential -Message "Enter an Admin username and password for the vi
 $resourceGroup = "DomEntChall"
 $location = "East US"
 
+# Random ID to enforce uniquiness in resource name
+$RandomId = (Get-Random -Minimum 100 -Maximum 999)
+
 # Get the VM size from the user
 Show-VMSizeMenu("Choose a size for the VM")
 $input = Read-Host "Please make a selection"
@@ -54,7 +57,7 @@ switch ($input)
 }
 
 # Get the name of the VM and allow a default
-$vmDefaultName = "DomChall-01"
+$vmDefaultName = "Chall-$RandomId"
 $vmName = Read-Host "Enter desired name of VM[$vmDefaultName]"
 switch ($vmName)
 {
@@ -73,13 +76,13 @@ pause
 $subnetConfig = New-AzureRmVirtualNetworkSubnetConfig -Name mySubnet1 -AddressPrefix 192.168.1.0/24
 
 # Create a virtual network
-$vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location -Name "dcvNET$(Get-Random)" -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
+$vnet = New-AzureRmVirtualNetwork -ResourceGroupName $resourceGroup -Location $location -Name "dcvNET-$RandomId" -AddressPrefix 192.168.0.0/16 -Subnet $subnetConfig
 
 # Create a public IP address and specify a DNS name
-$publicIp = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location -Name "mypublicdns$(Get-Random)" -AllocationMethod Static -IdleTimeoutInMinutes 4
+$publicIp = New-AzureRmPublicIpAddress -ResourceGroupName $resourceGroup -Location $location -Name "dcpublicdns-$RandomId" -AllocationMethod Static -IdleTimeoutInMinutes 4
 $publicIp | Select-Object Name,IpAddress
 
-$dcNSG = "myNetworkSecurityGroup$(Get-Random)"
+$dcNSG = "myNetworkSecurityGroup-$RandomId"
 
 # Create an inbound network security group rule for port 3389
 $nsgRuleRDP = New-AzureRmNetworkSecurityRuleConfig -Name myNetworkSecurityGroupRuleRDP  -Protocol Tcp `
@@ -91,7 +94,7 @@ $nsg = New-AzureRmNetworkSecurityGroup -ResourceGroupName $resourceGroup -Locati
   -Name $dcNSG -SecurityRules $nsgRuleRDP
 
 # Create a virtual network card and associate with public IP address and NSG
-$nic = New-AzureRmNetworkInterface -Name "myNic$(Get-Random)" -ResourceGroupName $resourceGroup -Location $location `
+$nic = New-AzureRmNetworkInterface -Name "myNic-$RandomId" -ResourceGroupName $resourceGroup -Location $location `
   -SubnetId $vnet.Subnets[0].Id -PublicIpAddressId $publicIp.Id -NetworkSecurityGroupId $nsg.Id
 
 # Just in case it was set for another size, make it the smallest possible
