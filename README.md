@@ -1,7 +1,7 @@
 # PowerShell-PerformanceCounters
 Script Challenge for Dominion Enterprises
 Practical Interview to be completed and submitted NLT Wednesday 2/28 at 3PM
-Duane Vigilance <duane.vigilance@dominionenterprises.com>
+
 
 Challenge 1
 -----------
